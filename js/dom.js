@@ -9,11 +9,11 @@ function addBookData() {
   const isComplete = document.getElementById('inputBookIsComplete').checked;
 
   const localStorageBookData = localStorage.getItem('bookData');
-  const dataStores = localStorageBookData
+  const bookData = localStorageBookData
     ? JSON.parse(localStorageBookData)
     : [];
 
-  dataStores.push({
+  bookData.push({
     id,
     title,
     author,
@@ -21,19 +21,25 @@ function addBookData() {
     isComplete,
   });
 
-  localStorage.setItem('bookData', JSON.stringify(dataStores));
+  localStorage.setItem('bookData', JSON.stringify(bookData));
 }
 
 function deleteBookDataById(id) {
-  const localStorageBookData = JSON.parse(localStorage.getItem('bookData'));
-  const newBookData = localStorageBookData.filter((item) => item.id !== id);
+  const localStorageBookData = localStorage.getItem('bookData');
+  const bookData = localStorageBookData
+    ? JSON.parse(localStorageBookData)
+    : [];
+  const newBookData = bookData.filter((item) => item.id !== id);
   localStorage.setItem('bookData', JSON.stringify(newBookData));
   return newBookData;
 }
 
 function updateIsCompleteBookDataById(id, isComplete) {
-  const localStorageBookData = JSON.parse(localStorage.getItem('bookData'));
-  const newBookData = localStorageBookData.map((item) => {
+  const localStorageBookData = localStorage.getItem('bookData');
+  const bookData = localStorageBookData
+    ? JSON.parse(localStorageBookData)
+    : [];
+  const newBookData = bookData.map((item) => {
     if (item.id === id) {
       return { ...item, isComplete: !isComplete };
     }
@@ -45,8 +51,11 @@ function updateIsCompleteBookDataById(id, isComplete) {
 
 function searchBookByTitle() {
   const title = document.getElementById('searchBookTitle').value.toLowerCase();
-  const localStorageBookData = JSON.parse(localStorage.getItem('bookData'));
-  const filteredBookData = localStorageBookData.filter((item) =>
+  const localStorageBookData = localStorage.getItem('bookData');
+  const bookData = localStorageBookData
+    ? JSON.parse(localStorageBookData)
+    : [];
+  const filteredBookData = bookData.filter((item) =>
     item.title.toLowerCase().includes(title)
   );
   return filteredBookData;

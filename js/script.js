@@ -8,8 +8,11 @@ document.addEventListener('DOMContentLoaded', function () {
     event.preventDefault();
     addBookData();
 
-    const bookData = localStorage.getItem('bookData');
-    displayBookData(JSON.parse(bookData));
+    const localStorageBookData = localStorage.getItem('bookData');
+    const bookData = localStorageBookData
+      ? JSON.parse(localStorageBookData)
+      : [];
+    displayBookData(bookData);
   });
 
   const submitSearch = document.getElementById('searchBook');
