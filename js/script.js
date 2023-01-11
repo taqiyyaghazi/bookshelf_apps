@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const bookData = localStorage.getItem('bookData');
-  displayBookData(JSON.parse(bookData));
+  const localStorageBookData = localStorage.getItem('bookData');
+  const bookData = localStorageBookData ? JSON.parse(localStorageBookData) : [];
+  displayBookData(bookData);
 
   const submitForm = document.getElementById('inputBook');
 
